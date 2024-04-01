@@ -18,17 +18,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedBigInteger('clinical_rotation_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('task_type_id')->nullable();
             $table->text('file')->nullable();
             $table->text('presentation_file')->nullable();
-            // $table->unsignedBigInteger('examiner_id_1')->nullable();
-            // $table->unsignedBigInteger('examiner_id_2')->nullable();
-            // $table->unsignedBigInteger('advisor_id_1')->nullable();
-            // $table->unsignedBigInteger('advisor_id_2')->nullable();
-            $table->integer('score_1')->nullable();
-            $table->integer('score_2')->nullable();
-            $table->integer('score_3')->nullable();
-            $table->integer('score_4')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
         });

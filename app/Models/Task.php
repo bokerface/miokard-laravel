@@ -15,7 +15,7 @@ class Task extends Model
         'description',
         'clinical_rotation_id',
         'category_id',
-        'task_type_id',
+        // 'task_type_id',
         'file',
         'presentation_file',
         'score_1',

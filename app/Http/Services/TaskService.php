@@ -10,8 +10,16 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskService
 {
-    public static function taskIndex($userId = null)
+    public static function taskIndex($userId = null, $teacher = false)
     {
+        if ($teacher) {
+            return Task::with('clinicalRotation', 'category', 'user', 'user.mentor', 'user.userProfile')
+                ->whereHas('user.mentor', function ($query) use ($userId) {
+                    $query->where('mentors.mentor_user_id', '=', $userId);
+                })
+                ->get();
+        }
+
         if ($userId) {
             return Task::with('clinicalRotation')->where('user_id', $userId)->get();
         }

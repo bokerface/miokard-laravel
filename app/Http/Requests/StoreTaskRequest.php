@@ -25,7 +25,7 @@ class StoreTaskRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'exists:categories,id'],
-            'task_type_id' => ['required', 'exists:task_types,id'],
+            // 'task_type_id' => ['required', 'exists:task_types,id'],
             'file' => ['required', 'mimes:doc,docx,pdf'],
             'presentation_file' => ['required', 'mimes:ppt,pptx'],
         ];

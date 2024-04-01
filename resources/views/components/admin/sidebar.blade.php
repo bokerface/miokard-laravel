@@ -95,9 +95,9 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('admin.user_index') }}">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span>
+            <span>User</span>
         </a>
     </li>
 

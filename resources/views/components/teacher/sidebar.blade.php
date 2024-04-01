@@ -95,9 +95,9 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('student.task_index') }}">
+        <a class="nav-link" href="{{ route('teacher.task_index') }}">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Tugas</span>
+            <span>Tugas Mahasiswa</span>
         </a>
     </li>
 

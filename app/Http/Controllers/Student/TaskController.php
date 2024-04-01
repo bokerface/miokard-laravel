@@ -12,7 +12,8 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $userId = 1;
+        $userId = 7;
+
         $tasks = TaskService::taskIndex($userId);
         return view('student.task.index')
             ->with(compact('tasks'));
@@ -27,7 +28,7 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-        $userId = 1;
+        $userId = 7;
 
         TaskService::storeTask($request, $userId);
         return redirect()->route('student.task_index');
