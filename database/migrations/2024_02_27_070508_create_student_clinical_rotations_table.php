@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('student_clinical_rotations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('clinical_rotation_id')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->unsignedBigInteger('clinical_rotation_id')->nullable();
             $table->timestamps();
         });
 

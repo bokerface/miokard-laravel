@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskService
 {
+    public static $task;
     public static function taskIndex($userId = null, $teacher = false)
     {
         if ($teacher) {
@@ -25,6 +26,23 @@ class TaskService
         }
 
         return Task::all();
+    }
+
+    public static function taskDetail($userId, $id)
+    {
+        static::$task = Task::with('clinicalRotation', 'category', 'user', 'user.mentor', 'user.userProfile')
+            ->where('id', '=', $id)
+            ->whereHas('user.mentor', function ($query) use ($userId) {
+                $query->where('mentors.mentor_user_id', '=', $userId);
+            })
+            ->firstOrFail();
+
+        return new static;
+    }
+
+    public static function fetch()
+    {
+        return static::$task;
     }
 
     public static function storeTask($request, $userId)
@@ -55,5 +73,20 @@ class TaskService
                 'presentation_file' => $filePathPresentation . '/' . $fileNamePresentation
             ]);
         });
+    }
+
+    public static function approveTask($userId)
+    {
+        $task = static::$task;
+
+        if ($task->user->mentor->mentor_user_id != $userId) {
+            return false;
+        }
+
+        DB::transaction(function () use ($task) {
+            $task->update(['status' => 1]);
+        });
+
+        return true;
     }
 }

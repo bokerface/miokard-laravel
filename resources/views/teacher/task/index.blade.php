@@ -4,7 +4,7 @@
     @endpush
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Tugas Saya</h1>
+        <h1 class="h3 mb-0 text-gray-800">Tugas Mahasiswa Bimbingan Saya</h1>
     </div>
 
     @if (session()->has('success'))
@@ -35,7 +35,9 @@
                     <tbody>
                         @foreach ($tasks as $task)
                             <tr>
-                                <td>{{ $task->userProfile->name }}</td>
+                                <td><a
+                                        href="{{ route('teacher.detail_task', $task->id) }}">{{ $task->user->userProfile->name }}</a>
+                                </td>
                                 <td>{{ $task->title }}</td>
                                 <td>{{ $task->clinicalRotation->name }}</td>
                                 <td>{{ $task->category->name }}</td>
@@ -43,27 +45,6 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Jenis Pengguna</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <a class="btn btn-primary mb-3" href="{{ route('admin.create_student') }}">Akun Mahasiswa</a>
-                    <br>
-                    <a class="btn btn-primary" href="{{ route('admin.create_teacher') }}">Akun Dosen</a>
-                </div>
-                <div class="modal-footer">
-                </div>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,5 +39,19 @@ class Task extends Model
     public function clinicalRotation()
     {
         return $this->belongsTo(ClinicalRotation::class);
+    }
+
+    protected function file(): Attribute
+    {
+        return  Attribute::make(
+            get: fn ($value) =>  $value ? encrypt($value) : null,
+        );
+    }
+
+    protected function presentationFile(): Attribute
+    {
+        return  Attribute::make(
+            get: fn ($value) => $value ? encrypt($value) : null,
+        );
     }
 }

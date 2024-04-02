@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->text('file')->nullable();
             $table->text('presentation_file')->nullable();
-            $table->integer('status')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
 
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('clinical_rotation_id')->references('id')->on('clinical_rotations')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('task_type_id')->references('id')->on('task_types')->onDelete('cascade');
+            // $table->foreign('task_type_id')->references('id')->on('task_types')->onDelete('cascade');
             // $table->foreign('examiner_id_1')->references('id')->on('users')->onDelete('cascade');
             // $table->foreign('examiner_id_2')->references('id')->on('users')->onDelete('cascade');
             // $table->foreign('advisor_id_1')->references('id')->on('users')->onDelete('cascade');

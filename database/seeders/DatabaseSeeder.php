@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(ClinicalRotationSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(MentorSeeder::class);
+        $this->call(MenteeSeeder::class);
+        $this->call(StudentClinicalRotationSeeder::class);
     }
 }
