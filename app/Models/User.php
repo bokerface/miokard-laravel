@@ -67,4 +67,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(StudentClinicalRotation::class);
     }
+
+    public function clinicalRotationSupervisor()
+    {
+        return $this->hasOne(ClinicalRotationSupervisor::class);
+    }
 }

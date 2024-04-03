@@ -78,17 +78,19 @@
                     </a>
                 </div>
             </div>
-            @if ($task->status != 1)
-                <hr>
-                <div class="mb-3 d-flex">
-                    <div class="mr-3">
-                        <a href="{{ route('teacher.approve_task', $task->id) }}"
-                            onclick="return confirm('Status Ilmiah yang telah disetujui tidak dapat dikembalikan. Lanjutkan?')"
-                            class="btn btn-outline-success">
-                            Setujui Ilmiah
-                        </a>
+            @if ($isSupervisor)
+                @if ($task->status != 1)
+                    <hr>
+                    <div class="mb-3 d-flex">
+                        <div class="mr-3">
+                            <a href="{{ route('teacher.approve_task', $task->id) }}"
+                                onclick="return confirm('Status Ilmiah yang telah disetujui tidak dapat dikembalikan. Lanjutkan?')"
+                                class="btn btn-outline-success">
+                                Setujui Ilmiah
+                            </a>
+                        </div>
                     </div>
-                </div>
+                @endif
             @endif
         </div>
     </div>

@@ -101,6 +101,27 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.user_index') . '?r=student' }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>PPDS</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.user_index') . '?r=teacher' }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Dosen</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.supervisor_index') }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Supervisor</span>
+        </a>
+    </li>
+
     <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="tables.html">

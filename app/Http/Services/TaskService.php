@@ -14,6 +14,18 @@ class TaskService
     public static function taskIndex($userId = null, $teacher = false)
     {
         if ($teacher) {
+            $supervisor = User::with('clinicalRotationSupervisor')
+                ->where('id', '=', $userId)->first()
+                ->clinicalRotationSupervisor;
+
+            if ($supervisor != null) {
+                return Task::with('clinicalRotation', 'category', 'user', 'user.mentor', 'user.userProfile')
+                    ->whereHas('clinicalRotation', function ($query) use ($supervisor) {
+                        $query->where('clinical_rotations.id', '=', $supervisor->clinical_rotation_id);
+                    })
+                    ->get();
+            }
+
             return Task::with('clinicalRotation', 'category', 'user', 'user.mentor', 'user.userProfile')
                 ->whereHas('user.mentor', function ($query) use ($userId) {
                     $query->where('mentors.mentor_user_id', '=', $userId);

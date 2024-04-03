@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\TaskService;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -21,8 +22,13 @@ class TaskController extends Controller
     {
         $userId = 2;
         $task = TaskService::taskDetail($userId, $id)->fetch();
+
+        $isSupervisor = User::with('clinicalRotationSupervisor')
+            ->where('id', '=', $userId)->first()
+            ->clinicalRotationSupervisor == null ? false : true;
+
         return view('teacher.task.detail')
-            ->with(compact('task'));
+            ->with(compact('task', 'isSupervisor'));
     }
 
     public function approve($id)
