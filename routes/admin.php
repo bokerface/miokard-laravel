@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\ClinicalRotationSupervisorController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +12,7 @@ Route::prefix('users')->group(function () {
     Route::post('create-student')->uses([UserController::class, 'storeStudent'])->name('admin.store_student');
     Route::get('create-teacher')->uses([UserController::class, 'createTeacherAccount'])->name('admin.create_teacher');
     Route::post('create-teacher')->uses([UserController::class, 'storeTeacher'])->name('admin.store_teacher');
+    Route::get('/{id}')->uses([UserController::class, 'show'])->name('admin.user_detail');
 });
 
 Route::prefix('supervisor')->group(function () {
@@ -21,4 +24,12 @@ Route::prefix('supervisor')->group(function () {
     Route::delete('/{id}/hapus')->uses([ClinicalRotationSupervisorController::class, 'destroy'])->name('admin.remove_supervisor');
 });
 
+Route::prefix('dosen')->group(function () {
+    Route::get('/{id}/ppds-bimbingan')->uses([TeacherController::class, 'show'])->name('admin.teacher_mentees');
+    Route::get('/{id}/tambah-ppds-bimbingan')->uses([TeacherController::class, 'create'])->name('admin.add_teacher_mentees');
+    Route::post('/{id}/tambah-ppds-bimbingan')->uses([TeacherController::class, 'storeMentee'])->name('admin.store_teacher_mentee');
+});
+
 Route::get('/dosen-by-name-api')->uses([ClinicalRotationSupervisorController::class, 'getSupervisorByName'])->name('admin.get_supervisor_by_name');
+
+Route::get('/student-by-name-api')->uses([StudentController::class, 'getStudentByName'])->name('admin.get_student_by_name');

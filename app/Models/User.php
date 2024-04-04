@@ -58,7 +58,7 @@ class User extends Authenticatable
         return $this->hasOne(Mentor::class);
     }
 
-    public function mentee()
+    public function mentees()
     {
         return $this->hasMany(Mentee::class);
     }

@@ -9,6 +9,11 @@ class Mentee extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'mentee_user_id',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -16,6 +21,6 @@ class Mentee extends Model
 
     public function mentee()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'mentee_user_id', 'id');
     }
 }

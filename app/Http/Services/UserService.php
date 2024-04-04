@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class UserService
 {
+    public static $user;
+    public static function fetch()
+    {
+        return static::$user;
+    }
     public static function storeUser($request, $role)
     {
         $data = Arr::add($request->validated(), 'role_id', $role);
@@ -43,5 +48,16 @@ class UserService
         } else {
             return $q->get();
         }
+    }
+
+    public static function userDetail($userId, $teacher = false)
+    {
+        if ($teacher) {
+            static::$user = User::with('mentees.mentee.userProfile')->findOrFail($userId);
+            return new static;
+        }
+
+        static::$user = User::findOrFail($userId);
+        return new static;
     }
 }

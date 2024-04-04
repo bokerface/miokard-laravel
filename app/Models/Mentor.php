@@ -9,6 +9,11 @@ class Mentor extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'mentor_user_id',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -16,6 +21,6 @@ class Mentor extends Model
 
     public function mentor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'mentor_user_id', 'id');
     }
 }

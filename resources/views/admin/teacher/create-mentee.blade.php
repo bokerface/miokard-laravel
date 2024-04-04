@@ -10,7 +10,7 @@
     @endpush
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Tambah Supervisor Stase {{ $clinicalRotation->name }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">Tambah Mahasiswa bimbingan {{ $user->userProfile->name }}</h1>
     </div>
 
     @if (session()->has('success'))
@@ -28,12 +28,18 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('admin.store_supervisor', $clinicalRotation->id) }}" method="POST">
+            <form action="" method="POST">
                 @csrf
-                <label for="user_id">Pilih Dosen</label>
-                <input type="hidden" name="clinical_rotation_id" value="{{ $clinicalRotation->id }}">
-                <select class="js-example-basic-single form-control" id="user_id" name="user_id">
+                <label for="user_id">Pilih Mahasiswa</label>
+                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                <select class="js-example-basic-single form-control @error('mentee_user_id') is-invalid @enderror"
+                    id="mentee_user_id" name="mentee_user_id">
                 </select>
+                @error('mentee_user_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <button type="submit" class="btn btn-primary btn-block mt-3">
                     Simpan
                 </button>
@@ -48,10 +54,10 @@
         <script>
             $(document).ready(function() {
                 $('.js-example-basic-single').select2({
-                    placeholder: "Cari berdasarkan nama dosen",
+                    placeholder: "Cari berdasarkan nama mahasiswa",
                     theme: "bootstrap",
                     ajax: {
-                        url: "{{ route('admin.get_supervisor_by_name') . '?f=supervisor' }}",
+                        url: "{{ route('admin.get_student_by_name') }}",
                         data: function(params) {
                             var query = {
                                 search: params.term,

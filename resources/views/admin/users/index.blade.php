@@ -29,7 +29,6 @@
         </div>
     @endif
 
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -46,16 +45,28 @@
                             @elseif ($role == 'teacher')
                                 <th>SIP</th>
                             @endif
+                            <th style="width: 25%"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $user->userProfile->name }}</td>
+                                <td>
+                                    <a href="{{ route('admin.user_detail', $user->id) }}">
+                                        {{ $user->userProfile->name }}
+                                    </a>
+                                </td>
                                 @if ($role == 'student')
-                                    <th>{{ $user->userProfile->studentId }}</th>
+                                    <td>{{ $user->userProfile->studentId }}</td>
+                                    <td></td>
                                 @elseif ($role == 'teacher')
-                                    <th>{{ $user->userProfile->sipId }}</th>
+                                    <td>{{ $user->userProfile->sipId }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ route('admin.teacher_mentees', $user->id) }}"
+                                            class="btn btn-primary">
+                                            Mahasiswa Bimbingan
+                                        </a>
+                                    </td>
                                 @endif
                             </tr>
                         @endforeach
@@ -64,7 +75,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

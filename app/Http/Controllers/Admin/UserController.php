@@ -20,6 +20,15 @@ class UserController extends Controller
             );
     }
 
+    public function show($id)
+    {
+        $user = UserService::userDetail($id)->fetch();
+        if ($user->role_id == 3) {
+            return view('admin.users.edit-teacher')
+                ->with(compact('user'));
+        }
+    }
+
     public function createStudentAccount()
     {
         return view('admin.users.create-student');

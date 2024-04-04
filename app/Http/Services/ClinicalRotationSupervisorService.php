@@ -77,6 +77,20 @@ class ClinicalRotationSupervisorService
 
     public static function getSupervisorByName($request)
     {
+        if ($request->f == 'supervisor') {
+            $q = ClinicalRotationSupervisor::all();
+            $employedSupervisor = $q->pluck('user_id');
+
+            return User::with('userProfile')
+                ->whereHas('userProfile', function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->where('role_id', '=', 3)
+                ->whereNotIn('id', $employedSupervisor)
+                ->limit(10)
+                ->get();
+        }
+
         $q = ClinicalRotationSupervisor::all();
         $employedSupervisor = $q->pluck('user_id');
 
