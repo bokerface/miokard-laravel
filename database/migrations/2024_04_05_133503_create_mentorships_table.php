@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mentors', function (Blueprint $table) {
+        Schema::create('mentorships', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('mentor_user_id')->nullable();
+            $table->unsignedBigInteger('mentee_user_id')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('mentors', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        Schema::table('mentorships', function (Blueprint $table) {
             $table->foreign('mentor_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('mentee_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mentors');
+        Schema::dropIfExists('mentorships');
     }
 };

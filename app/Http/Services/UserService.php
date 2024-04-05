@@ -22,18 +22,29 @@ class UserService
         // dd($request->name);
         return DB::transaction(function () use ($data, $request, $role) {
             $user = User::create($data);
-            UserProfile::create([
-                'user_id' => $user->id,
-                'name' => $request->name
-            ]);
-
             if ($role == 2) {
+                UserProfile::create([
+                    'user_id' => $user->id,
+                    'name' => $request->name,
+                    'gender' => $request->gender,
+                    'student_id' => $request->student_id
+                ]);
+
                 StudentClinicalRotation::create([
                     'user_id' => $user->id,
                     'start_date' => Carbon::now(),
                     'clinical_rotation_id' => 1
                 ]);
+
+                return true;
             }
+
+            UserProfile::create([
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'gender' => $request->gender,
+                'sip_id' => $request->sip_id
+            ]);
         });
     }
 
@@ -53,11 +64,20 @@ class UserService
     public static function userDetail($userId, $teacher = false)
     {
         if ($teacher) {
-            static::$user = User::with('mentees.mentee.userProfile')->findOrFail($userId);
+            static::$user = User::with('mentees.menteeUser.userProfile')->findOrFail($userId);
             return new static;
         }
 
         static::$user = User::findOrFail($userId);
         return new static;
+    }
+
+    public static function delete()
+    {
+        if (static::$user->delete()) {
+            return true;
+        }
+
+        return false;
     }
 }

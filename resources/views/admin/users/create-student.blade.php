@@ -19,10 +19,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="nim" class="form-label">NIM</label>
-                    <input type="text" name="nim" class="form-control @error('nim') is-invalid @enderror"
-                        id="nim">
-                    @error('nim')
+                    <label for="student_id" class="form-label">NIM</label>
+                    <input type="number" name="student_id"
+                        class="form-control @error('student_id') is-invalid @enderror" id="student_id">
+                    @error('student_id')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

@@ -55,12 +55,12 @@ class User extends Authenticatable
 
     public function mentor()
     {
-        return $this->hasOne(Mentor::class);
+        return $this->hasOne(Mentorship::class, 'mentee_user_id', 'id');
     }
 
     public function mentees()
     {
-        return $this->hasMany(Mentee::class);
+        return $this->hasMany(Mentorship::class, 'mentor_user_id', 'id');
     }
 
     public function studentClinicalRotations()

@@ -13,6 +13,7 @@ Route::prefix('users')->group(function () {
     Route::get('create-teacher')->uses([UserController::class, 'createTeacherAccount'])->name('admin.create_teacher');
     Route::post('create-teacher')->uses([UserController::class, 'storeTeacher'])->name('admin.store_teacher');
     Route::get('/{id}')->uses([UserController::class, 'show'])->name('admin.user_detail');
+    Route::delete('/{id}/delete')->uses([UserController::class, 'destroy'])->name('admin.delete_user');
 });
 
 Route::prefix('supervisor')->group(function () {
@@ -28,6 +29,7 @@ Route::prefix('dosen')->group(function () {
     Route::get('/{id}/ppds-bimbingan')->uses([TeacherController::class, 'show'])->name('admin.teacher_mentees');
     Route::get('/{id}/tambah-ppds-bimbingan')->uses([TeacherController::class, 'create'])->name('admin.add_teacher_mentees');
     Route::post('/{id}/tambah-ppds-bimbingan')->uses([TeacherController::class, 'storeMentee'])->name('admin.store_teacher_mentee');
+    Route::delete('hapus-ppds-bimbingan/{id}')->uses([TeacherController::class, 'deleteMentee'])->name('admin.delete_mentee');
 });
 
 Route::get('/dosen-by-name-api')->uses([ClinicalRotationSupervisorController::class, 'getSupervisorByName'])->name('admin.get_supervisor_by_name');

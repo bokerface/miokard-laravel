@@ -54,14 +54,17 @@
                         @foreach ($user->mentees as $mentee)
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.user_detail', $mentee->mentee->id) }}">
-                                        {{ $mentee->mentee->userProfile->name }}
+                                    <a href="{{ route('admin.user_detail', $mentee->menteeUser->id) }}">
+                                        {{ $mentee->menteeUser->userProfile->name }}
                                     </a>
                                 </td>
-                                <td>{{ $mentee->mentee->userProfile->student_id }}</td>
+                                <td>{{ $mentee->menteeUser->userProfile->student_id }}</td>
                                 <td class="text-center">
-                                    <form action="">
-                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                    <form action="{{ route('admin.delete_mentee', $mentee->id) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('PPDS akan dihapus dari daftar bimbingan. Lanjutkan?')">Hapus</button>
                                     </form>
                                 </td>
                             </tr>

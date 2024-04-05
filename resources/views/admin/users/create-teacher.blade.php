@@ -19,10 +19,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="sip" class="form-label">SIP</label>
-                    <input type="text" name="sip" class="form-control @error('sip') is-invalid @enderror"
-                        id="sip">
-                    @error('sip')
+                    <label for="sip_id" class="form-label">SIP</label>
+                    <input type="number" name="sip_id" class="form-control @error('sip_id') is-invalid @enderror"
+                        id="sip_id">
+                    @error('sip_id')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

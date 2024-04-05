@@ -50,4 +50,15 @@ class UserController extends Controller
         UserService::storeUser($request, 3);
         return redirect()->to(route('admin.user_index') . '?r=teacher')->with('success', 'Akun dosen berhasil ditambahkan');
     }
+
+    public function destroy($id)
+    {
+        $destroy = UserService::userDetail($id)->delete();
+
+        if (!$destroy) {
+            return redirect()->to(route('admin.user_index'))->with('error', 'Gagal menghapus user, data tidak ditemukan');
+        }
+
+        return redirect()->back()->with('success', 'User berhasil dihapus');
+    }
 }

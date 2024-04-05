@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMenteeRequest;
+use App\Http\Services\MentorshipService;
 use App\Http\Services\StudentService;
 use App\Http\Services\UserService;
 use Illuminate\Http\Request;
@@ -13,7 +14,6 @@ class TeacherController extends Controller
     public function show($id)
     {
         $user = UserService::userDetail($id, true)->fetch();
-        // dd($user);
         if ($user->role_id != 3) {
             abort(404);
         }
@@ -30,12 +30,22 @@ class TeacherController extends Controller
 
     public function storeMentee(StoreMenteeRequest $request, $id)
     {
-        $mentee = StudentService::storeTeacherMentee($request, $id);
+        $mentee = MentorshipService::storeMentorship($request, $id);
 
         if (!$mentee) {
             return redirect()->to(route('admin.add_teacher_mentees', $id))->with('error', 'Mahasiswa sudah memiliki pembimbing');
         }
 
         return redirect()->to(route('admin.teacher_mentees', $id))->with('success', 'Mahasiswa ditambahkan');
+    }
+
+    public function deleteMentee($id)
+    {
+        $delete = MentorshipService::deleteMentorship($id);
+
+        if (!$delete) {
+            return redirect()->back()->with('error', 'Mahasiswa tidak ditemukan');
+        }
+        return redirect()->back()->with('success', 'Mahasiswa dihapus');
     }
 }

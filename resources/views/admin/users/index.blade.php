@@ -5,10 +5,11 @@
     @endpush
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Users</h1>
         @if ($role == 'student')
+            <h1 class="h3 mb-0 text-gray-800">PPDS</h1>
             <a class="btn btn-primary mb-3" href="{{ route('admin.create_student') }}">Tambah Mahasiswa</a>
         @elseif ($role == 'teacher')
+            <h1 class="h3 mb-0 text-gray-800">Dosen</h1>
             <a class="btn btn-primary" href="{{ route('admin.create_teacher') }}">Tambah Dosen</a>
         @else
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -31,9 +32,6 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -44,8 +42,9 @@
                                 <th>NIM</th>
                             @elseif ($role == 'teacher')
                                 <th>SIP</th>
+                                <th style="width: 25%"></th>
                             @endif
-                            <th style="width: 25%"></th>
+                            <th style="width: 15%"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,17 +56,29 @@
                                     </a>
                                 </td>
                                 @if ($role == 'student')
-                                    <td>{{ $user->userProfile->studentId }}</td>
-                                    <td></td>
+                                    <td>{{ $user->userProfile->student_id }}</td>
                                 @elseif ($role == 'teacher')
-                                    <td>{{ $user->userProfile->sipId }}</td>
+                                    <td>{{ $user->userProfile->sip_id }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.teacher_mentees', $user->id) }}"
                                             class="btn btn-primary">
                                             Mahasiswa Bimbingan
+                                            <span class="badge badge-light">
+                                                {{ $user->mentees->count() }}
+                                            </span>
                                         </a>
                                     </td>
                                 @endif
+                                <td class="text-center">
+                                    <form action="{{ route('admin.delete_user', $user->id) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Pengguna yang sudah dihapus tidak dapat dikembalikan dengan cara apapun. Lanjutkan?')">
+                                            Hapus User
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
