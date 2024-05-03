@@ -13,7 +13,7 @@ class TaskService
     public static $task;
     public static function taskIndex($userId = null, $teacher = false)
     {
-        if ($teacher) {
+        if ($userId && $teacher) {
             $supervisor = User::with('clinicalRotationSupervisor')
                 ->where('id', '=', $userId)->first()
                 ->clinicalRotationSupervisor;
@@ -28,7 +28,7 @@ class TaskService
 
             return Task::with('clinicalRotation', 'category', 'user', 'user.mentor', 'user.userProfile')
                 ->whereHas('user.mentor', function ($query) use ($userId) {
-                    $query->where('mentors.mentor_user_id', '=', $userId);
+                    $query->where('mentorships.mentor_user_id', '=', $userId);
                 })
                 ->get();
         }
@@ -40,14 +40,26 @@ class TaskService
         return Task::all();
     }
 
-    public static function taskDetail($userId, $id)
+    public static function taskDetail($userId, $id, $for = null)
     {
-        static::$task = Task::with('clinicalRotation', 'category', 'user', 'user.mentor', 'user.userProfile')
-            ->where('id', '=', $id)
-            ->whereHas('user.mentor', function ($query) use ($userId) {
-                $query->where('mentors.mentor_user_id', '=', $userId);
-            })
-            ->firstOrFail();
+
+        if ($for == 'student') {
+            static::$task = Task::with('clinicalRotation', 'category', 'user', 'user.mentor', 'user.userProfile')
+                ->where([
+                    ['id', '=', $id],
+                    ['user_id', '=', $userId]
+                ])
+                ->firstOrFail();
+        }
+
+        if ($for == 'teacher') {
+            static::$task = Task::with('clinicalRotation', 'category', 'user', 'user.mentor', 'user.userProfile')
+                ->where('id', '=', $id)
+                ->whereHas('user.mentor', function ($query) use ($userId) {
+                    $query->where('mentorships.mentor_user_id', '=', $userId);
+                })
+                ->firstOrFail();
+        }
 
         return new static;
     }
@@ -100,5 +112,56 @@ class TaskService
         });
 
         return true;
+    }
+
+    public static function updateTask($userId, $request)
+    {
+        $task = static::$task;
+
+        $data = Arr::except($request->validated(), ['file', 'presentation_file']);
+
+        DB::transaction(function () use ($task, $data, $userId, $request) {
+            // If has Task File
+            if ($request->hasFile('file')) {
+                // upload task file start
+                $file = $request->validated()['file'];
+                $filePath = 'ppds/' . $userId . '/' . 'tasks/' . $task->id . '/' . 'file';
+                $fileName = $file->getClientOriginalName();
+                Storage::putFileAs($filePath, $file, $fileName);
+                // upload task file end
+
+                // delete task file start
+                $filePath = decrypt($task->file);
+                if (Storage::exists($filePath)) {
+                    Storage::delete($filePath);
+                }
+                // delete task file end
+
+                // set new file path
+                $data['file'] = $filePath . '/' . $fileName;
+            }
+
+            // IF has Task Presentation File
+            if ($request->hasFile('presentation_file')) {
+                // upload task presentation file start
+                $filePresentation = $request->validated()['presentation_file'];
+                $filePathPresentation = 'ppds/' . $userId . '/' . 'tasks/' . $task->id . '/' . 'presentation_file';
+                $fileNamePresentation = $filePresentation->getClientOriginalName();
+                Storage::putFileAs($filePathPresentation, $filePresentation, $fileNamePresentation);
+                // delete task presentation file end
+
+                // delete task presentation file start
+                $filePresentationPath = decrypt($task->file);
+                if (Storage::exists($filePresentationPath)) {
+                    Storage::delete($filePresentationPath);
+                }
+                // delete task presentation file end
+
+                // set new presentation file path
+                $data['presentation_file'] = $filePathPresentation . '/' . $fileNamePresentation;
+            }
+
+            $task->update($data);
+        });
     }
 }

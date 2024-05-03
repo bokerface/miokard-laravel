@@ -35,33 +35,13 @@
                     <tbody>
                         @foreach ($tasks as $task)
                             <tr>
-                                <td>{{ $task->title }}</td>
+                                <td><a href="{{ route('student.detail_task', $task->id) }}">{{ $task->title }}</a></td>
                                 <td>{{ $task->clinicalRotation->name }}</td>
                                 <td>{{ $task->category->name }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Jenis Pengguna</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <a class="btn btn-primary mb-3" href="{{ route('admin.create_student') }}">Akun Mahasiswa</a>
-                    <br>
-                    <a class="btn btn-primary" href="{{ route('admin.create_teacher') }}">Akun Dosen</a>
-                </div>
-                <div class="modal-footer">
-                </div>
             </div>
         </div>
     </div>

@@ -25,4 +25,20 @@ class FileController extends Controller
             abort(404);
         }
     }
+
+    public function preview(Request $request)
+    {
+        $path = decrypt($request->f);
+
+        if ($path == null) {
+            abort(404);
+        }
+
+        if (Storage::exists($path)) {
+            return Storage::response($path);
+            // return Storage::get($path);
+        }
+
+        dd($path);
+    }
 }

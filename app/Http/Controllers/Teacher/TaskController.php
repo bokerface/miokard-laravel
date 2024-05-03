@@ -21,7 +21,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $userId = 2;
-        $task = TaskService::taskDetail($userId, $id)->fetch();
+        $task = TaskService::taskDetail($userId, $id, 'teacher')->fetch();
 
         $isSupervisor = User::with('clinicalRotationSupervisor')
             ->where('id', '=', $userId)->first()
