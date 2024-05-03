@@ -33,16 +33,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tasks as $task)
+                        @if ($tasks->count() == 0)
                             <tr>
-                                <td><a
-                                        href="{{ route('teacher.detail_task', $task->id) }}">{{ $task->user->userProfile->name }}</a>
-                                </td>
-                                <td>{{ $task->title }}</td>
-                                <td>{{ $task->clinicalRotation->name }}</td>
-                                <td>{{ $task->category->name }}</td>
+                                <td colspan="4" class="text-center">Belum ada tugas</td>
                             </tr>
-                        @endforeach
+                        @else
+                            @foreach ($tasks as $task)
+                                <tr>
+                                    <td><a
+                                            href="{{ route('teacher.detail_task', $task->id) }}">{{ $task->user->userProfile->name }}</a>
+                                    </td>
+                                    <td>{{ $task->title }}</td>
+                                    <td>{{ $task->clinicalRotation->name }}</td>
+                                    <td>{{ $task->category->name }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
