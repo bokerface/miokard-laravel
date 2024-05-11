@@ -40,7 +40,7 @@ class TaskService
         return Task::all();
     }
 
-    public static function taskDetail($userId, $id, $for = null)
+    public static function taskDetail($userId = null, $id, $for = null)
     {
 
         if ($for == 'student') {
@@ -61,6 +61,12 @@ class TaskService
                 ->firstOrFail();
         }
 
+        if ($for == 'admin') {
+            static::$task = Task::with('clinicalRotation', 'category', 'user', 'user.userProfile')
+                ->where('id', '=', $id)
+                ->firstOrFail();
+        }
+
         return new static;
     }
 
@@ -77,6 +83,7 @@ class TaskService
 
             $task = Task::create(array_merge($taskData, [
                 'user_id' => $userId,
+                'student_clinical_rotation_id' => $user->studentClinicalRotations->last()->id,
                 'clinical_rotation_id' => $user->studentClinicalRotations->last()->clinical_rotation_id
             ]));
 

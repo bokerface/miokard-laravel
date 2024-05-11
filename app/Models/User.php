@@ -48,9 +48,9 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class);
     }
 
-    public function tasks()
+    public function logbooks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Logbook::class);
     }
 
     public function mentor()
@@ -66,6 +66,16 @@ class User extends Authenticatable
     public function studentClinicalRotations()
     {
         return $this->hasMany(StudentClinicalRotation::class);
+    }
+
+    public function activeClinicalRotation()
+    {
+        return $this->hasOne(StudentClinicalRotation::class)->latest();
+    }
+
+    public function finishedClinicalRotations()
+    {
+        return $this->hasMany(StudentClinicalRotation::class)->where('status', '=', 'finished');
     }
 
     public function clinicalRotationSupervisor()

@@ -13,7 +13,8 @@ class StudentClinicalRotation extends Model
         'user_id',
         'start_date',
         'end_date',
-        'clinical_rotation_id'
+        'status',
+        'clinical_rotation_id',
     ];
 
     public function user()
@@ -24,5 +25,10 @@ class StudentClinicalRotation extends Model
     public function clinicalRotation()
     {
         return $this->belongsTo(ClinicalRotation::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

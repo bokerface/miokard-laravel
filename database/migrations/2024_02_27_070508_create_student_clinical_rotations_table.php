@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('clinical_rotation_id')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
 

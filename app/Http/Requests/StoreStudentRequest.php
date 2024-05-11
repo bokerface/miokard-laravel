@@ -27,6 +27,7 @@ class StoreStudentRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'confirmed'],
             'gender' => ['required', 'string', 'max:255'],
+            'mentor_user_id' => ['required', 'exists:users,id'],
             // 'role' => ['required', 'exists:roles,id'],
         ];
     }

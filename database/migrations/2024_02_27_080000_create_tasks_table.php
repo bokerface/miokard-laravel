@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->unsignedBigInteger('clinical_rotation_id')->nullable();
+            $table->unsignedBigInteger('student_clinical_rotation_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->text('file')->nullable();
             $table->text('presentation_file')->nullable();
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('clinical_rotation_id')->references('id')->on('clinical_rotations')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('student_clinical_rotation_id')->references('id')->on('student_clinical_rotations')->onDelete('cascade');
             // $table->foreign('task_type_id')->references('id')->on('task_types')->onDelete('cascade');
             // $table->foreign('examiner_id_1')->references('id')->on('users')->onDelete('cascade');
             // $table->foreign('examiner_id_2')->references('id')->on('users')->onDelete('cascade');

@@ -14,7 +14,6 @@ class TaskController extends Controller
     public function index()
     {
         $userId = 1;
-
         $tasks = TaskService::taskIndex($userId);
         return view('student.task.index')
             ->with(compact('tasks'));

@@ -16,7 +16,7 @@ class Task extends Model
         'description',
         'clinical_rotation_id',
         'category_id',
-        // 'task_type_id',
+        'student_clinical_rotation_id',
         'file',
         'presentation_file',
         'score_1',
@@ -39,6 +39,11 @@ class Task extends Model
     public function clinicalRotation()
     {
         return $this->belongsTo(ClinicalRotation::class);
+    }
+
+    public function studentClinicalRotation()
+    {
+        return $this->belongsTo(studentClinicalRotation::class);
     }
 
     protected function file(): Attribute

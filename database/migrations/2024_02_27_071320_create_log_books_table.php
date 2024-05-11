@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->date('date')->nullable();
             $table->string('patient_name')->nullable();
-            $table->string('patient_gender')->nullable();
+            $table->enum('patient_gender', ['laki-laki', 'perempuan'])->nullable();
             $table->integer('patient_age')->nullable();
             $table->string('type_of_action')->nullable();
             $table->timestamps();
