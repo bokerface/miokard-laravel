@@ -7,6 +7,7 @@ use App\Http\Enums\GenderEnum;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\UpdateTeacherRequest;
 use App\Http\Services\UserService;
 use App\Models\ClinicalRotation;
 use Illuminate\Http\Request;
@@ -77,7 +78,14 @@ class UserController extends Controller
     {
         UserService::userDetail($id)->updateUser($request);
 
-        return redirect()->back()->with('success', 'Akun mahasiswa berhasil diperbarui');
+        return redirect()->back()->with('success', 'Informasi akun mahasiswa berhasil diperbarui');
+    }
+
+    public function updateTeacher(UpdateTeacherRequest $request, $id)
+    {
+        UserService::userDetail($id)->updateUser($request);
+
+        return redirect()->back()->with('success', 'Informasi akun dosen berhasil diperbarui');
     }
 
     public function changeStudentClinicalRotation(Request $request, $id)

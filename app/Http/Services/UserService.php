@@ -9,6 +9,7 @@ use App\Models\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
@@ -97,8 +98,30 @@ class UserService
         $user = static::$user;
 
         DB::transaction(function () use ($user, $request) {
-            $user->userProfile->update(Arr::except($request->validated(), ['email']));
+            $user->userProfile->update(Arr::except($request->validated(), ['email', 'photo']));
             $user->update(Arr::only($request->validated(), ['email']));
+
+            if ($request->has('photo')) {
+                // dd($request->photo);
+
+                // delete task file start
+                $filePath = decrypt($user->userProfile->photo);
+                if (Storage::exists($filePath)) {
+                    Storage::delete($filePath);
+                }
+                // delete task file end
+
+                // Upload user profile picture
+                $file = $request->validated()['photo'];
+                $filePath = 'ppds/' . $user->id . '/' . 'profile_picture';
+                $fileName = $file->getClientOriginalName();
+                Storage::putFileAs($filePath, $file, $fileName);
+                // Upload user profile picture
+
+                $user->userProfile->update(
+                    ['photo' => $filePath . '/' . $fileName]
+                );
+            }
         });
     }
 

@@ -6,7 +6,7 @@ use App\Http\Enums\GenderEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateStudentRequest extends FormRequest
+class UpdateTeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,7 +33,7 @@ class UpdateStudentRequest extends FormRequest
             'phone' => ['required', 'string', 'max:25'],
             'emergency_phone' => ['required', 'string', 'max:25'],
             'str_id' => ['required', 'string', 'max:50'],
-            'student_id' => ['required', 'string', 'max:50'],
+            'sip_id' => ['required', 'string', 'max:50'],
             // 'status',
             'bpjs_id' => ['required', 'string', 'max:50'],
             'bank_account' => ['required', 'string', 'max:50'],

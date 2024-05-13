@@ -164,11 +164,35 @@
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                <div class="text-center">
+                    <img src="https://dummyimage.com/600x400/000/fff" class="rounded-circle" alt="..."
+                        style="object-fit: cover;width: 180px;height: 180px;">
+                </div>
+                <div class="form-group">
+                    <label for="photo">Ganti Foto Profil</label>
+                    <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo"
+                        name="photo" value="{{ old('photo') ?? $user->userProfile->photo }}">
+                    @error('photo')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label for="name">Nama Lengkap</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="nama"
                         name="name" value="{{ old('name') ?? $user->userProfile->name }}">
                     @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="str_id">No. STR</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="str_id"
+                        name="str_id" value="{{ old('str_id') ?? $user->userProfile->str_id }}">
+                    @error('str_id')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

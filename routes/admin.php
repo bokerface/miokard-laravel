@@ -16,6 +16,7 @@ Route::prefix('users')->group(function () {
     Route::post('create-teacher')->uses([UserController::class, 'storeTeacher'])->name('admin.store_teacher');
     Route::get('/{id}')->uses([UserController::class, 'show'])->name('admin.user_detail');
     Route::put('/{id}/update-ppds')->uses([UserController::class, 'updateStudent'])->name('admin.update_student_data');
+    Route::put('/{id}/update-dosen')->uses([UserController::class, 'updateTeacher'])->name('admin.update_teacher_data');
     Route::delete('/{id}/delete')->uses([UserController::class, 'destroy'])->name('admin.delete_user');
     Route::put('/{id}/change-clinical-rotation')->uses([UserController::class, 'changeStudentClinicalRotation'])->name('admin.change_student_clinical_rotation');
     Route::put('/{id}/change-mentor')->uses([UserController::class, 'changeStudentMentor'])->name('admin.change_student_mentor');
