@@ -105,9 +105,11 @@ class UserService
                 // dd($request->photo);
 
                 // delete task file start
-                $filePath = decrypt($user->userProfile->photo);
-                if (Storage::exists($filePath)) {
-                    Storage::delete($filePath);
+                if ($user->userProfile->photo != null) {
+                    $filePath = decrypt($user->userProfile->photo);
+                    if (Storage::exists($filePath)) {
+                        Storage::delete($filePath);
+                    }
                 }
                 // delete task file end
 

@@ -18,4 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('preview-file', [FileController::class, 'preview'])->name('file.preview');
+Route::group([], function () {
+    Route::get('preview-file', [FileController::class, 'preview'])->name('file.preview');
+    Route::get('foto-profile', [FileController::class, 'profilePicture'])->name('user.profile_picture');
+});

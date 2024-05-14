@@ -10,17 +10,16 @@ class FileController extends Controller
 {
     public function download(Request $request)
     {
-        // dd(decrypt($request->f));
-        $path = decrypt($request->f);
-
-        if ($path == null) {
+        if ($request->f == null) {
             abort(404);
         }
+
+        $path = decrypt($request->f);
 
         if (Storage::exists($path)) {
             // $content = Storage::get($path);
             return response()->download(Storage::path($path));
-            abort(404);
+            // abort(404);
         } else {
             abort(404);
         }
@@ -28,17 +27,28 @@ class FileController extends Controller
 
     public function preview(Request $request)
     {
-        $path = decrypt($request->f);
-
-        if ($path == null) {
+        if ($request->f == null) {
             abort(404);
         }
 
+        $path = decrypt($request->f);
+
         if (Storage::exists($path)) {
             return Storage::response($path);
-            // return Storage::get($path);
+        }
+    }
+
+    public function profilePicture(Request $request)
+    {
+        if ($request->f == null) {
+            return asset('images/undraw_profile_1.svg');
+            // abort(404);
         }
 
-        dd($path);
+        $path = decrypt($request->f);
+
+        if (Storage::exists($path)) {
+            return Storage::response($path);
+        }
     }
 }

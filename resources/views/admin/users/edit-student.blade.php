@@ -165,8 +165,10 @@
                 @csrf
                 @method('PUT')
                 <div class="text-center">
-                    <img src="https://dummyimage.com/600x400/000/fff" class="rounded-circle" alt="..."
-                        style="object-fit: cover;width: 180px;height: 180px;">
+                    {{-- <img src="https://dummyimage.com/600x400/000/fff" class="rounded-circle" alt="..."
+                        style="object-fit: cover;width: 180px;height: 180px;"> --}}
+                    <img src="{{ route('user.profile_picture') . '?f=' . $user->userProfile->photo }}"
+                        class="rounded-circle" alt="..." style="object-fit: cover;width: 180px;height: 180px;">
                 </div>
                 <div class="form-group">
                     <label for="photo">Ganti Foto Profil</label>
