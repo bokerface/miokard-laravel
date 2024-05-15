@@ -17,4 +17,5 @@ Route::prefix('tugas')->group(function () {
 
 Route::prefix('logbook')->group(function () {
     Route::get('/', [LogbookController::class, 'index'])->name('teacher.logbook_index');
+    Route::get('/{id}', [LogbookController::class, 'show'])->name('teacher.detail_logbook');
 });

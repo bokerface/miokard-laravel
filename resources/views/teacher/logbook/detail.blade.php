@@ -1,7 +1,7 @@
-<x-admin.layout>
+<x-teacher.layout>
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail Logbook</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Logbook PPDS</h1>
     </div>
 
     @if (session()->has('success'))
@@ -15,12 +15,8 @@
             {{ session('error') }}
         </div>
     @endif
-
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            @csrf
-            @method('PUT')
             <div class="form-group d-flex">
                 <label for="title" class="col-sm-2 col-form-label">
                     Judul
@@ -67,4 +63,4 @@
 
     @push('js')
     @endpush
-</x-admin.layout>
+</x-teacher.layout>

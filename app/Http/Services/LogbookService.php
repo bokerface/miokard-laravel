@@ -40,7 +40,7 @@ class LogbookService
         }
     }
 
-    public static function logbookDetail($id, $userId, $forRole)
+    public static function logbookDetail($id, $userId = null, $forRole)
     {
         if ($forRole == 'student') {
             $logbook = LogBook::where([
@@ -55,6 +55,28 @@ class LogbookService
                 ['id', '=', $id],
             ])
                 ->firstOrFail();
+        }
+
+        if ($forRole == 'teacher') {
+            $supervisor = ClinicalRotationSupervisor::where('user_id', '=', $userId)->first();
+            if ($supervisor) {
+                $logbook = LogBook::with('user.userProfile', 'user.activeClinicalRotation', 'user.mentor')
+                    ->where('id', '=', $id)
+                    ->whereHas('user.activeClinicalRotation', function ($query) use ($supervisor) {
+                        $query->where('student_clinical_rotations.clinical_rotation_id', '=', $supervisor->clinical_rotation_id);
+                    })
+                    ->whereHas('user.mentor', function ($query) use ($userId) {
+                        $query->where('mentorships.mentor_user_id', '=', $userId);
+                    })
+                    ->firstOrFail();
+            } else {
+                $logbook = LogBook::with('user.userProfile', 'user.activeClinicalRotation', 'user.mentor')
+                    ->where('id', '=', $id)
+                    ->whereHas('user.mentor', function ($query) use ($userId) {
+                        $query->where('mentorships.mentor_user_id', '=', $userId);
+                    })
+                    ->firstOrFail();
+            }
         }
 
         static::$logbook = $logbook;
