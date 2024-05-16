@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\LogbookController;
 use App\Http\Controllers\Student\TaskController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/', [DashboardController::class, 'index'])->name('student.dashboard');
 
 Route::prefix('tugas')->group(function () {
     Route::get('/')->uses([TaskController::class, 'index'])->name('student.task_index');

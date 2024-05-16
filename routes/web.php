@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
+use App\Http\Middleware\AuthCheck;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +17,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check() && auth()->user()->role_id != 1) {
+        # code...
+    }
+
+    // if user role is student
+    if (auth()->check() && auth()->user()->role_id != 2) {
+        # code...
+    }
+
+    // if user role is teacher
+    if (auth()->check() && auth()->user()->role_id != 3) {
+        # code...
+    }
 });
+
+Route::middleware(AuthCheck::class)
+    ->prefix('login')
+    ->group(function () {
+        Route::get('/', [AuthController::class, 'login'])->name('login');
+        Route::post('/', [AuthController::class, 'loginProcess'])->name('login.post');
+    });
+
+
 
 Route::group([], function () {
     Route::get('preview-file', [FileController::class, 'preview'])->name('file.preview');

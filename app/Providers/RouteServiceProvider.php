@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\AdminCheck;
+use App\Http\Middleware\StudentCheck;
+use App\Http\Middleware\TeacherCheck;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -36,15 +39,15 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web', AdminCheck::class])
                 ->prefix('admin')
                 ->group(base_path('routes/admin.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web', StudentCheck::class])
                 ->prefix('ppds')
                 ->group(base_path('routes/student.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web', TeacherCheck::class])
                 ->prefix('dosen')
                 ->group(base_path('routes/teacher.php'));
         });
