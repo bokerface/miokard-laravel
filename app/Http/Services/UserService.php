@@ -14,10 +14,19 @@ use Illuminate\Support\Facades\Storage;
 class UserService
 {
     public static $user;
+
     public static function fetch()
     {
         return static::$user;
     }
+
+    public static function getAuthenticatedUser($userId)
+    {
+        static::$user = User::with('userProfile', 'mentor.mentorUser.userProfile', 'activeClinicalRotation.clinicalRotation')->find($userId);
+
+        return new static;
+    }
+
     public static function storeUser($request, $role)
     {
         $data = Arr::add($request->validated(), 'role_id', $role);

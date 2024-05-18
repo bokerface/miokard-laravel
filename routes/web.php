@@ -17,19 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    if (auth()->check() && auth()->user()->role_id != 1) {
-        # code...
+    if (auth()->check() && auth()->user()->role_id == 1) {
+        return redirect()->route('admin.dashboard');
     }
 
     // if user role is student
-    if (auth()->check() && auth()->user()->role_id != 2) {
-        # code...
+    if (auth()->check() && auth()->user()->role_id == 2) {
+        return redirect()->route('student.dashboard');
     }
 
     // if user role is teacher
-    if (auth()->check() && auth()->user()->role_id != 3) {
-        # code...
+    if (auth()->check() && auth()->user()->role_id == 3) {
+        return redirect()->route('teacher.dashboard');
     }
+
+    return redirect()->route('login');
 });
 
 Route::middleware(AuthCheck::class)
@@ -38,8 +40,6 @@ Route::middleware(AuthCheck::class)
         Route::get('/', [AuthController::class, 'login'])->name('login');
         Route::post('/', [AuthController::class, 'loginProcess'])->name('login.post');
     });
-
-
 
 Route::group([], function () {
     Route::get('preview-file', [FileController::class, 'preview'])->name('file.preview');

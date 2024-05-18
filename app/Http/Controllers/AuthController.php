@@ -13,7 +13,7 @@ class AuthController extends Controller
             session(['url.intended' => url()->previous()]);
         }
 
-        dump(auth()->user());
+        // dump(auth()->user());
 
         return view('auth.login');
     }
