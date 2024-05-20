@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
 use App\Http\Middleware\AuthCheck;
+use App\Http\Middleware\GuestCheck;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,12 +35,14 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::middleware(AuthCheck::class)
+Route::middleware(GuestCheck::class)
     ->prefix('login')
     ->group(function () {
         Route::get('/', [AuthController::class, 'login'])->name('login');
         Route::post('/', [AuthController::class, 'loginProcess'])->name('login.post');
     });
+
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group([], function () {
     Route::get('preview-file', [FileController::class, 'preview'])->name('file.preview');

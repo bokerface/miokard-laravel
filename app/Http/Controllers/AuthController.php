@@ -13,8 +13,6 @@ class AuthController extends Controller
             session(['url.intended' => url()->previous()]);
         }
 
-        // dump(auth()->user());
-
         return view('auth.login');
     }
 
@@ -31,5 +29,13 @@ class AuthController extends Controller
         } else {
             return back()->with('error', 'Email atau password yang anda masukkan salah')->withInput($request->only('email'));
         }
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

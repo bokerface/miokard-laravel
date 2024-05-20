@@ -22,7 +22,7 @@ class UserService
 
     public static function getAuthenticatedUser($userId)
     {
-        static::$user = User::with('userProfile', 'mentor.mentorUser.userProfile', 'activeClinicalRotation.clinicalRotation')->find($userId);
+        static::$user = User::with('userProfile', 'mentor.mentorUser.userProfile', 'activeClinicalRotation.clinicalRotation', 'mentees.menteeUser.userProfile')->find($userId);
 
         return new static;
     }

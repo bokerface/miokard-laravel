@@ -24,20 +24,20 @@ class UpdateStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
+            'name' => ['sometimes', 'string', 'max:255'],
+            'email' => ['sometimes', 'email', 'max:255'],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'gender' => ['required', Rule::enum(GenderEnum::class)],
-            'origin_address' => ['required', 'string', 'max:255'],
-            'residence_address' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:25'],
-            'emergency_phone' => ['required', 'string', 'max:25'],
-            'str_id' => ['required', 'string', 'max:50'],
-            'student_id' => ['required', 'string', 'max:50'],
+            'gender' => ['sometimes', Rule::enum(GenderEnum::class)],
+            'origin_address' => ['sometimes', 'string', 'max:255'],
+            'residence_address' => ['sometimes', 'string', 'max:255'],
+            'phone' => ['sometimes', 'string', 'max:25'],
+            'emergency_phone' => ['sometimes', 'string', 'max:25'],
+            'str_id' => ['sometimes', 'string', 'max:50'],
+            'student_id' => ['sometimes', 'string', 'max:50'],
             // 'status',
-            'bpjs_id' => ['required', 'string', 'max:50'],
-            'bank_account' => ['required', 'string', 'max:50'],
-            'age' => ['required', 'numeric', 'max_digits:3'],
+            'bpjs_id' => ['sometimes', 'string', 'max:50'],
+            'bank_account' => ['sometimes', 'string', 'max:50'],
+            'age' => ['sometimes', 'numeric', 'max_digits:3'],
         ];
     }
 }

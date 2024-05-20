@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\LogbookController;
+use App\Http\Controllers\Student\ProfileController;
 use App\Http\Controllers\Student\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,9 @@ Route::prefix('logbook')->group(function () {
     Route::get('/{id}')->uses([LogbookController::class, 'edit'])->name('student.edit_logbook');
     Route::put('/{id}/update')->uses([LogbookController::class, 'update'])->name('student.update_logbook');
     Route::delete('/{id}/delete')->uses([LogbookController::class, 'destroy'])->name('student.delete_logbook');
+});
+
+Route::prefix('profil')->group(function () {
+    Route::get('/', [ProfileController::class, 'show'])->name('student.profile');
+    Route::put('/update', [ProfileController::class, 'update'])->name('student.update_profile');
 });
