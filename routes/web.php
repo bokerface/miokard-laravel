@@ -48,3 +48,9 @@ Route::group([], function () {
     Route::get('preview-file', [FileController::class, 'preview'])->name('file.preview');
     Route::get('foto-profile', [FileController::class, 'profilePicture'])->name('user.profile_picture');
 });
+
+Route::get('mail', function () {
+    $url = route('student.detail_task', ['id' => 1]);
+
+    return new App\Mail\TaskSubmitted($url);
+});

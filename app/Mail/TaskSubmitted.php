@@ -13,12 +13,20 @@ class TaskSubmitted extends Mailable
 {
     use Queueable, SerializesModels;
 
+    // public $studentData;
+    // public $taskData;
+    // public $emailTarget;
+    public $url;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($url)
     {
-        //
+        // $this->studentData = $studentData;
+        // $this->taskData = $taskData;
+        // $this->emailTarget = $emailTarget;
+        $this->url = $url;
     }
 
     /**
@@ -27,7 +35,7 @@ class TaskSubmitted extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Task Submitted',
+            subject: 'Tugas Baru',
         );
     }
 

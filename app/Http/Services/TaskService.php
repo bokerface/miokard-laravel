@@ -77,7 +77,7 @@ class TaskService
 
     public static function storeTask($request, $userId)
     {
-        DB::transaction(function () use ($request, $userId) {
+        $task = DB::transaction(function () use ($request, $userId) {
             $user = User::with('studentClinicalRotations')->where('id', '=', $userId)->first();
             $taskData = Arr::except($request->validated(), ['file', 'presentation_file']);
 
@@ -103,7 +103,11 @@ class TaskService
                 'file' => $filePath . '/' . $fileName,
                 'presentation_file' => $filePathPresentation . '/' . $fileNamePresentation
             ]);
+
+            return $task;
         });
+
+        return $task;
     }
 
     public static function approveTask($userId)

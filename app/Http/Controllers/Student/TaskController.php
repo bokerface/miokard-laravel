@@ -39,7 +39,9 @@ class TaskController extends Controller
     {
         $userId = 1;
 
-        TaskService::storeTask($request, $userId);
+        $task = TaskService::storeTask($request, $userId);
+
+        // dd($task);
         return redirect()->route('student.task_index');
     }
 
