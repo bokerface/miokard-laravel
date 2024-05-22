@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Teacher;
 
+use App\Http\Services\UserService;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
@@ -21,6 +22,9 @@ class Navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.teacher.navbar');
+        $userId = auth()->id();
+        $user = UserService::getAuthenticatedUser($userId)->fetch();
+        return view('components.teacher.navbar')
+            ->with(compact('user'));
     }
 }

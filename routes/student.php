@@ -28,4 +28,6 @@ Route::prefix('logbook')->group(function () {
 Route::prefix('profil')->group(function () {
     Route::get('/', [ProfileController::class, 'show'])->name('student.profile');
     Route::put('/update', [ProfileController::class, 'update'])->name('student.update_profile');
+    Route::get('ganti-password', [ProfileController::class, 'changePassword'])->name('student.change_password');
+    Route::put('ganti-password', [ProfileController::class, 'updatePassword'])->name('student.update_password');
 });

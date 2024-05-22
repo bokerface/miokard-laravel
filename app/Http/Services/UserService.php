@@ -27,6 +27,15 @@ class UserService
         return new static;
     }
 
+    public static function updatePassword($request)
+    {
+        $user =  static::$user;
+
+        $user->update(
+            ['password' => $request->validated()['new_password']]
+        );
+    }
+
     public static function storeUser($request, $role)
     {
         $data = Arr::add($request->validated(), 'role_id', $role);

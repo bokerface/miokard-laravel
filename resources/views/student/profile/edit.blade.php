@@ -250,6 +250,9 @@
                         </div>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <a href="{{ route('student.change_password') }}" class="">Ganti password</a>
+                </div>
                 <button type="submit" class="btn btn-primary btn-block">Simpan</button>
             </form>
         </div>
