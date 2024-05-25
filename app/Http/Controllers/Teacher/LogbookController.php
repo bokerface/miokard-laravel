@@ -10,7 +10,7 @@ class LogbookController extends Controller
 {
     public function index()
     {
-        $userId = 2;
+        $userId = auth()->user()->id;
         $logbooks = LogbookService::logbookIndex($userId, 'teacher');
         return view('teacher.logbook.index')
             ->with(compact('logbooks'));
@@ -18,7 +18,7 @@ class LogbookController extends Controller
 
     public function show($id)
     {
-        $userId = 2;
+        $userId = auth()->user()->id;
         $logbook = LogbookService::logbookDetail($id, $userId, 'teacher')->fetch();
         // dd($logbook);
         return view('teacher.logbook.detail')

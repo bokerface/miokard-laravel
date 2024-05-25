@@ -2,10 +2,12 @@
 
 namespace App\Http\Services;
 
+use App\Mail\TaskSubmitted;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class TaskService
@@ -77,14 +79,14 @@ class TaskService
 
     public static function storeTask($request, $userId)
     {
-        $task = DB::transaction(function () use ($request, $userId) {
-            $user = User::with('studentClinicalRotations')->where('id', '=', $userId)->first();
+        DB::transaction(function () use ($request, $userId) {
+            $user = User::with('activeClinicalRotation', 'activeClinicalRotation.clinicalRotation.clinicalRotationSupervisor.user', 'mentor.mentorUser.userProfile')->where('id', '=', $userId)->first();
             $taskData = Arr::except($request->validated(), ['file', 'presentation_file']);
 
             $task = Task::create(array_merge($taskData, [
                 'user_id' => $userId,
-                'student_clinical_rotation_id' => $user->studentClinicalRotations->last()->id,
-                'clinical_rotation_id' => $user->studentClinicalRotations->last()->clinical_rotation_id
+                'student_clinical_rotation_id' => $user->activeClinicalRotation->id,
+                'clinical_rotation_id' => $user->activeClinicalRotation->clinical_rotation_id
             ]));
 
             // Upload Task File 
@@ -104,10 +106,15 @@ class TaskService
                 'presentation_file' => $filePathPresentation . '/' . $fileNamePresentation
             ]);
 
-            return $task;
-        });
 
-        return $task;
+            Mail::to("waskitodamar51@gmail.com")->send(new TaskSubmitted(route('teacher.detail_task', $task->id)));
+
+            Mail::to(User::where('role_id', 1)->first()->email)->send(new TaskSubmitted(route('admin.task_detail', $task->id)));
+
+            if ($user->activeClinicalRotation->clinicalRotation->clinicalRotationSupervisor != null) {
+                Mail::to($user->activeClinicalRotation->clinicalRotation->clinicalRotationSupervisor->user->email)->send(new TaskSubmitted(route('teacher.detail_task', $task->id)));
+            }
+        });
     }
 
     public static function approveTask($userId)

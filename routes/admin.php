@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\ClinicalRotationSupervisorController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LogbookController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('dashboard')->uses([DashboardController::class, 'index'])->name('admin.dashboard');
+
 
 Route::prefix('users')->group(function () {
     Route::get('/')->uses([UserController::class, 'index'])->name('admin.user_index');

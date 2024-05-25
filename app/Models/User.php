@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function activeClinicalRotation()
     {
-        return $this->hasOne(StudentClinicalRotation::class)->latest();
+        return $this->hasOne(StudentClinicalRotation::class, 'user_id', 'id')->latest();
     }
 
     public function finishedClinicalRotations()

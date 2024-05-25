@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
         $tasks = TaskService::taskIndex($userId);
         return view('student.task.index')
             ->with(compact('tasks'));
@@ -21,7 +21,7 @@ class TaskController extends Controller
 
     public function edit($id)
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
         $categories = Category::all();
         $task = TaskService::taskDetail($userId, $id, 'student')->fetch();
         return view('student.task.edit')
@@ -37,9 +37,9 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
 
-        $task = TaskService::storeTask($request, $userId);
+        TaskService::storeTask($request, $userId);
 
         // dd($task);
         return redirect()->route('student.task_index');
@@ -47,7 +47,7 @@ class TaskController extends Controller
 
     public function update($id, UpdateStudentTaskRequest $request)
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
         TaskService::taskDetail($userId, $id, 'student')->updateTask($userId, $request);
 
         return redirect()->route('student.task_index')->with('success', 'Tugas berhasil diperbarui');

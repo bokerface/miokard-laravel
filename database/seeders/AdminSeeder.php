@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder
                     ];
                 }))
             ->create([
-                'email' => 'admin@miokard_laravel.com',
+                'email' => 'badkorayonkasihan@gmail.com',
                 'password' => bcrypt('pass'),
                 'role_id' => 1
             ]);

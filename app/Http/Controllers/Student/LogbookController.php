@@ -14,7 +14,7 @@ class LogbookController extends Controller
 {
     public function index()
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
         $logbooks = LogBook::where('user_id', $userId)->get();
         return view('student.logbook.index')
             ->with(compact('logbooks'));
@@ -30,7 +30,7 @@ class LogbookController extends Controller
 
     public function edit($id)
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
 
         $logbook = LogbookService::logbookDetail($id, $userId, 'student')->fetch();
         $genders = GenderEnum::cases();
@@ -40,7 +40,7 @@ class LogbookController extends Controller
 
     public function store(StoreLogbookRequest $request)
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
 
         LogbookService::storeLogbook($request, $userId);
         return redirect()->route('student.logbook_index')->with('success', 'Logbook berhasil ditambahkan');
@@ -48,7 +48,7 @@ class LogbookController extends Controller
 
     public function update(UpdateLogbookRequest $request, $id)
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
         LogbookService::logbookDetail($id, $userId, 'student')->updateLogbook($request);
 
         return redirect()->route('student.logbook_index')->with('success', 'Logbook berhasil diperbarui');
@@ -56,7 +56,7 @@ class LogbookController extends Controller
 
     public function destroy($id)
     {
-        $userId = 1;
+        $userId = auth()->user()->id;
         LogbookService::logbookDetail($id, $userId, 'student')->deleteLogbook();
         return redirect()->route('student.logbook_index')->with('success', 'Logbook berhasil dihapus');
     }

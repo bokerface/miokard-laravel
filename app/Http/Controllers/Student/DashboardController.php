@@ -13,6 +13,7 @@ class DashboardController extends Controller
         $userId = auth()->user()->id;
         $user = UserService::getAuthenticatedUser($userId)->fetch();
         // dd($user);
+        // dd($user);
         return view('student.dashboard', compact('user'));
     }
 }

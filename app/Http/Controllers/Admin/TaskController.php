@@ -14,6 +14,6 @@ class TaskController extends Controller
         $task = TaskService::taskDetail(null, $id, 'admin')->fetch();
         return view('admin.task.detail')
             ->with(compact('task'));
-        dd($task);
+        // dd($task);
     }
 }

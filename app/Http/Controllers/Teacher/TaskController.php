@@ -11,7 +11,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $userId = 2;
+        $userId = auth()->user()->id;
         // dd(TaskService::taskIndex($userId, true));
         $tasks = TaskService::taskIndex($userId, true);
         return view('teacher.task.index')
@@ -20,7 +20,7 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $userId = 2;
+        $userId = auth()->user()->id;
         $task = TaskService::taskDetail($userId, $id, 'teacher')->fetch();
 
         $isSupervisor = User::with('clinicalRotationSupervisor')
@@ -33,7 +33,7 @@ class TaskController extends Controller
 
     public function approve($id)
     {
-        $userId = 2;
+        $userId = auth()->user()->id;
 
         $taskApproval = TaskService::taskDetail($userId, $id)->approveTask($userId);
 
