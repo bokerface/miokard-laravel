@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard')->uses([DashboardController::class, 'index'])->name('admin.dashboard');
 
-
 Route::prefix('users')->group(function () {
     Route::get('/')->uses([UserController::class, 'index'])->name('admin.user_index');
     Route::get('create-student')->uses([UserController::class, 'createStudentAccount'])->name('admin.create_student');

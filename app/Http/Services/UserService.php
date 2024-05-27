@@ -2,6 +2,8 @@
 
 namespace App\Http\Services;
 
+use App\Mail\ClinicalRotationChanged;
+use App\Models\ClinicalRotation;
 use App\Models\Mentorship;
 use App\Models\StudentClinicalRotation;
 use App\Models\User;
@@ -9,6 +11,7 @@ use App\Models\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class UserService
@@ -167,6 +170,8 @@ class UserService
                 'clinical_rotation_id' => $data['clinical_rotation_id']
             ]);
             // create new clinical rotation
+
+            Mail::to("waskitodamar51@gmail.com")->send(new ClinicalRotationChanged(static::$user, ClinicalRotation::find($data['clinical_rotation_id'])));
         });
     }
 
