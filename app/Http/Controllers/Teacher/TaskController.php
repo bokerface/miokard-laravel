@@ -35,7 +35,7 @@ class TaskController extends Controller
     {
         $userId = auth()->user()->id;
 
-        $taskApproval = TaskService::taskDetail($userId, $id)->approveTask($userId);
+        $taskApproval = TaskService::taskDetail($userId, $id, 'teacher')->approveTask($userId);
 
         if (!$taskApproval) {
             abort(403);
