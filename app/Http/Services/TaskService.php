@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Mail\ConfirmedTask;
 use App\Mail\TaskSubmitted;
+use App\Models\ClinicalRotationSupervisor;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Arr;
@@ -128,12 +129,16 @@ class TaskService
         //     return false;
         // }
 
+        $isSupervisor = ClinicalRotationSupervisor::where([['user_id', '=', $userId], ['clinical_rotation_id', '=', $task->clinical_rotation_id]])->exists();
+
+        if (!$isSupervisor) {
+            return false;
+        }
+
         DB::transaction(function () use ($task) {
             $task->update(['status' => 1]);
 
             Mail::to("waskitodamar51@gmail.com")->send(new ConfirmedTask($task, $task->user));
-
-            dd('done');
         });
 
         return true;
