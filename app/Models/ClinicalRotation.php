@@ -18,4 +18,9 @@ class ClinicalRotation extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(StudentClinicalRotation::class)->where('status', '=', null);
+    }
 }
