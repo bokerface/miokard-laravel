@@ -11,8 +11,18 @@ class DashboardController extends Controller
     public function index()
     {
         $clinicalRotations = ClinicalRotation::with('students.user')->get();
-        dd($clinicalRotations->pluck('students'));
+
+        $flat = $clinicalRotations->pluck('name')->toArray();
+
+        // dd($flat);
+
+        $studentsPerClinicalRotation = [];
+        foreach ($clinicalRotations->pluck('students') as $student) {
+            $studentsPerClinicalRotation[] = $student->count();
+        }
+        // dd($studentsPerClinicalRotation);
+        // dd($clinicalRotations->pluck('students'));
         return view('admin.dashboard.index')
-            ->with(compact('clinicalRotations'));
+            ->with(compact('clinicalRotations', 'studentsPerClinicalRotation'));
     }
 }

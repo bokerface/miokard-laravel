@@ -87,13 +87,13 @@
             var myBarChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: "{{ $clinicalRotations->pluck('name') }}",
+                    labels: "@foreach ($clinicalRotations->pluck('name')->toArray() as $clinicalRotationName) {{ $clinicalRotationName . ',' }} @endforeach",
                     datasets: [{
                         label: "Revenue",
                         backgroundColor: "#4e73df",
                         hoverBackgroundColor: "#2e59d9",
                         borderColor: "#4e73df",
-                        data: [4215, 5312, 6251, 7841, 9821, 0],
+                        data: "@foreach ($clinicalRotations->pluck('students') as $student) {{ $student->count() }} @endforeach",
                     }],
                 },
                 options: {
