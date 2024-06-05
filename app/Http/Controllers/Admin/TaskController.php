@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+
+    public function index()
+    {
+        $task = TaskService::taskIndex();
+        return view('admin.task.index');
+    }
+
     public function show($id)
     {
         // $userId = 1;

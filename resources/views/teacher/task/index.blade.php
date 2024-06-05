@@ -1,4 +1,4 @@
-<x-student.layout>
+<x-teacher.layout>
     @push('css')
         <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endpush
@@ -67,4 +67,4 @@
             });
         </script>
     @endpush
-</x-student.layout>
+</x-teacher.layout>
