@@ -54,6 +54,21 @@
         </a>
     </li>
 
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.task_index') }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Tugas PPDS</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.task_index') }}">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Logbook PPDS</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

@@ -11,8 +11,9 @@ class TaskController extends Controller
 
     public function index()
     {
-        $task = TaskService::taskIndex();
-        return view('admin.task.index');
+        $tasks = TaskService::taskIndex();
+        return view('admin.task.index')
+            ->with(compact('tasks'));
     }
 
     public function show($id)

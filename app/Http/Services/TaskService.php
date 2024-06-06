@@ -41,7 +41,7 @@ class TaskService
             return Task::with('clinicalRotation')->where('user_id', $userId)->get();
         }
 
-        return Task::all();
+        return Task::with('user.userProfile')->get();
     }
 
     public static function taskDetail($userId = null, $id, $for = null)

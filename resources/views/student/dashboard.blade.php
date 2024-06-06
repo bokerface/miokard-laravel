@@ -37,12 +37,14 @@
                             <strong>{{ $user->activeClinicalRotation->clinicalRotation->name }}</strong>
                         </h6>
                     </div>
-                    <div class="row">
-                        <h6 class="col-3">Pembimbing</h6>
-                        <h6>
-                            <strong>{{ $user->mentor->mentorUser->userProfile->name }}</strong>
-                        </h6>
-                    </div>
+                    @if ($user->mentor != null)
+                        <div class="row">
+                            <h6 class="col-3">Pembimbing</h6>
+                            <h6>
+                                <strong>{{ $user->mentor->mentorUser->userProfile->name }}</strong>
+                            </h6>
+                        </div>
+                    @endif
 
                 </div>
             </div>

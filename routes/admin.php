@@ -42,10 +42,12 @@ Route::prefix('dosen')->group(function () {
 });
 
 Route::prefix('tugas')->group(function () {
+    Route::get('/')->uses([TaskController::class, 'index'])->name('admin.task_index');
     Route::get('{id}')->uses([TaskController::class, 'show'])->name('admin.task_detail');
 });
 
 Route::prefix('logbook')->group(function () {
+    Route::get('/')->uses([LogbookController::class, 'index'])->name('admin.logbook_index');
     Route::get('{id}')->uses([LogbookController::class, 'show'])->name('admin.logbook_detail');
 });
 

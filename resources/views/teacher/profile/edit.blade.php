@@ -19,7 +19,7 @@
         <div class="card-body">
             <div class="mb-5">
                 <table class="table table-bordered mb-3">
-                    <th>Mahasiswa Saya</th>
+                    <th>Mahasiswa Bimbingan Saya</th>
                     @foreach ($user->mentees as $mentee)
                         <tr>
                             <td>{{ $mentee->menteeUser->userProfile->name }}</td>

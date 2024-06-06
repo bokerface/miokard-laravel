@@ -38,6 +38,11 @@ class LogbookService
                 ->get();
             return $logbooks;
         }
+
+        if ($forRole == 'admin') {
+            $logbooks = LogBook::with('user.userProfile', 'user.activeClinicalRotation', 'user.mentor')->get();
+            return $logbooks;
+        }
     }
 
     public static function logbookDetail($id, $userId = null, $forRole)

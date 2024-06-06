@@ -17,7 +17,7 @@
     @endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Tugas Mahasiswa</h1>
+        <h1 class="h3 mb-0 text-gray-800">Logbook Mahasiswa</h1>
     </div>
 
     <!-- DataTales Example -->
@@ -32,13 +32,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tasks as $task)
+                        @foreach ($logbooks as $logbook)
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.task_detail', $task->id) }}">{{ $task->title }}</a>
+                                    <a href="{{ route('admin.logbook_detail', $logbook->id) }}">
+                                        {{ $logbook->title }}
+                                    </a>
                                 </td>
                                 <td>
-                                    {{ $task->user->userProfile->name }}</a>
+                                    {{ $logbook->user->userProfile->name }}</a>
                                 </td>
                             </tr>
                         @endforeach
