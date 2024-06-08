@@ -4,25 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClinicalRotation;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+
         $clinicalRotations = ClinicalRotation::with('students.user')->get();
 
         $flat = $clinicalRotations->pluck('name')->toArray();
 
-        // dd($flat);
+        $totalStudents = User::where('role_id', 2)->count();
 
-        $studentsPerClinicalRotation = [];
-        foreach ($clinicalRotations->pluck('students') as $student) {
-            $studentsPerClinicalRotation[] = $student->count();
-        }
-        // dd($studentsPerClinicalRotation);
-        // dd($clinicalRotations->pluck('students'));
+        // dd($clinicalRotations);
+
+
         return view('admin.dashboard.index')
-            ->with(compact('clinicalRotations', 'studentsPerClinicalRotation'));
+            ->with(compact('clinicalRotations', 'totalStudents'));
     }
 }

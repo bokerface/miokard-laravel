@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('emergency_phone')->nullable();
             $table->string('student_id')->nullable();
+            $table->smallInteger('entry_year')->nullable();
             // $table->string('status')->nullable();
             $table->string('sip_id')->nullable();
             $table->string('str_id')->nullable();

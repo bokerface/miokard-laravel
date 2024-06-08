@@ -211,6 +211,16 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="entry_year">Tahun Masuk</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="entry_year"
+                        name="entry_year" value="{{ old('entry_year') ?? $user->userProfile->entry_year }}">
+                    @error('entry_year')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
                         name="email" value="{{ old('email') ?? $user->email }}">

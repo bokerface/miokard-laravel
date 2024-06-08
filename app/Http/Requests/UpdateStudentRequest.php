@@ -34,6 +34,7 @@ class UpdateStudentRequest extends FormRequest
             'emergency_phone' => ['sometimes', 'string', 'max:25'],
             'str_id' => ['sometimes', 'string', 'max:50'],
             'student_id' => ['sometimes', 'string', 'max:50'],
+            'entry_year' => ['sometimes', 'numeric', 'max_digits:2'],
             // 'status',
             'bpjs_id' => ['sometimes', 'string', 'max:50'],
             'bank_account' => ['sometimes', 'string', 'max:50'],

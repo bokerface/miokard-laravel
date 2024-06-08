@@ -10,7 +10,7 @@ class LogbookController extends Controller
 {
     public function index()
     {
-        $logbooks = LogbookService::logbookIndex(null, 'admin')->fetch();
+        $logbooks = LogbookService::logbookIndex(null, 'admin');
 
         return view('admin.logbook.index')
             ->with(compact('logbooks'));

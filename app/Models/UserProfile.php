@@ -20,6 +20,7 @@ class UserProfile extends Model
         'phone',
         'emergency_phone',
         'student_id',
+        'entry_year',
         'status',
         'sip_id',
         'str_id',

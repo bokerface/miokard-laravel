@@ -63,7 +63,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.task_index') }}">
+        <a class="nav-link" href="{{ route('admin.logbook_index') }}">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Logbook PPDS</span>
         </a>

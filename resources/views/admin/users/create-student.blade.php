@@ -38,6 +38,16 @@
                     @enderror
                 </div>
                 <div class="mb-3">
+                    <label for="entry_year" class="form-label">Tahun Masuk</label>
+                    <input type="number" name="entry_year"
+                        class="form-control @error('entry_year') is-invalid @enderror" id="entry_year">
+                    @error('entry_year')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                         id="email">

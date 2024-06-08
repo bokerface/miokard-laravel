@@ -152,6 +152,16 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="entry_year">Tahun Masuk</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="entry_year"
+                        name="entry_year" value="{{ old('entry_year') ?? $user->userProfile->entry_year }}">
+                    @error('entry_year')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
                         name="email" value="{{ old('email') ?? $user->email }}">
@@ -180,8 +190,8 @@
                 </div>
                 <div class="form-group">
                     <label for="origin_address">Alamat Asli</label>
-                    <textarea name="origin_address" id="origin_address" class="form-control @error('origin_address') is-invalid @enderror"
-                        cols="30" rows="10">{{ old('origin_address') ?? $user->userProfile->origin_address }}</textarea>
+                    <textarea name="origin_address" id="origin_address"
+                        class="form-control @error('origin_address') is-invalid @enderror" cols="30" rows="10">{{ old('origin_address') ?? $user->userProfile->origin_address }}</textarea>
                     @error('origin_address')
                         <div class="invalid-feedback">
                             {{ $message }}
