@@ -14,10 +14,42 @@ class DashboardController extends Controller
 
         $clinicalRotations = ClinicalRotation::with('students.user')->get();
 
+
         $flat = $clinicalRotations->pluck('name')->toArray();
 
-        $totalStudents = User::where('role_id', 2)->count();
+        $students = User::with('userProfile')->where('role_id', 2);
 
+        $totalStudents = $students->count();
+
+        if (request()->ajax()) {
+            $barChartData = [];
+
+            $data = $students->distinct()->get()->groupBy('userProfile.entry_year')->toArray();
+            ksort($data);
+
+            foreach ($data as $key => $value) {
+                $barChartData['entryYear'][] = [
+                    'year' => $key,
+                    'count' => count($value)
+                ];
+            }
+
+            foreach ($clinicalRotations as $clinicalRotation) {
+                $barChartData['clinicalRotation'][] = [
+                    'clinicalRotation' => $clinicalRotation->name,
+                    'count' => $clinicalRotation->students->count()
+                ];
+            }
+
+
+            return response()->json($barChartData);
+        }
+
+        // die();
+
+
+        // dd($barChartData);
+        // dd($students->get());
         // dd($clinicalRotations);
 
 

@@ -50,7 +50,8 @@ class UserService
                     'user_id' => $user->id,
                     'name' => $request->name,
                     'gender' => $request->gender,
-                    'student_id' => $request->student_id
+                    'student_id' => $request->student_id,
+                    'entry_year' => $request->entry_year
                 ]);
 
                 StudentClinicalRotation::create([
