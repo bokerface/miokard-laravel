@@ -11,7 +11,7 @@
                     <label for="name" class="form-label">Nama
                         Lengkap</label>
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        id="name">
+                        id="name" value="{{ old('name') }}">
                     @error('name')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -21,7 +21,7 @@
                 <div class="mb-3">
                     <label for="sip_id" class="form-label">SIP</label>
                     <input type="number" name="sip_id" class="form-control @error('sip_id') is-invalid @enderror"
-                        id="sip_id">
+                        id="sip_id" value="{{ old('sip_id') }}">
                     @error('sip_id')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -32,14 +32,15 @@
                     <label for="gender" class="form-label">Jenis Kelamin</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender" id="gender" value="laki-laki"
-                            checked>
+                            @if (old('gender') == 'laki-laki') "checked" @endif>
                         <label class="form-check-label" for="gender">
                             Laki-laki
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender" id="gender" value="perempuan">
-                        <label class="form-check-label" for="gender">
+                        <label class="form-check-label" for="gender"
+                            @if (old('gender') == 'perempuan') "checked" @endif>
                             Perempuan
                         </label>
                     </div>
@@ -52,7 +53,7 @@
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                        id="email">
+                        id="email" value="{{ old('email') }}">
                     @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}
