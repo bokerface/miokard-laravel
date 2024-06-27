@@ -108,4 +108,14 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Pembimbing PPDS berhasil diganti');
     }
+
+    public function import()
+    {
+        return view('admin.users.import');
+    }
+
+    public function storeImportedUsers(Request $request)
+    {
+        dd($request->all());
+    }
 }
