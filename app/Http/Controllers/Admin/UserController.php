@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Enums\GenderEnum;
+use App\Http\Enums\RoleEnum;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Requests\UpdateTeacherRequest;
 use App\Http\Services\UserService;
+use App\Imports\StudentsImport;
 use App\Models\ClinicalRotation;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -116,6 +119,10 @@ class UserController extends Controller
 
     public function storeImportedUsers(Request $request)
     {
-        dd($request->all());
+        Excel::import(new StudentsImport(), $request->file);
+
+        return redirect()->back()->with('success', 'Import data pengguna berhasil');
+
+        // dd($request->all());
     }
 }

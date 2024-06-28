@@ -15,6 +15,9 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Tambah Pengguna
             </button>
+            <a href="{{ route('admin.import_users') }}" type="button" class="btn btn-primary">
+                Import Pengguna (Excel)
+            </a>
         @endif
     </div>
 
