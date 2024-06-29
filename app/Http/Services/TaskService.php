@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
 
 class TaskService
 {
@@ -95,13 +96,15 @@ class TaskService
             $file = $request->validated()['file'];
             $filePath = 'ppds/' . $userId . '/' . 'tasks/' . $task->id . '/' . 'file';
             $fileName = $file->getClientOriginalName();
-            Storage::putFileAs($filePath, $file, $fileName);
+            // Storage::putFileAs($filePath, $file, $fileName);
+            Gdrive::put($filePath . '/' . $fileName, $file);
 
             // Upload Task Presentation File
             $filePresentation = $request->validated()['presentation_file'];
             $filePathPresentation = 'ppds/' . $userId . '/' . 'tasks/' . $task->id . '/' . 'presentation_file';
             $fileNamePresentation = $filePresentation->getClientOriginalName();
-            Storage::putFileAs($filePathPresentation, $filePresentation, $fileNamePresentation);
+            // Storage::putFileAs($filePathPresentation, $filePresentation, $fileNamePresentation);
+            Gdrive::put($filePathPresentation . '/' . $fileNamePresentation, $filePresentation);
 
             $task->update([
                 'file' => $filePath . '/' . $fileName,
@@ -157,14 +160,16 @@ class TaskService
                 $file = $request->validated()['file'];
                 $filePath = 'ppds/' . $userId . '/' . 'tasks/' . $task->id . '/' . 'file';
                 $fileName = $file->getClientOriginalName();
-                Storage::putFileAs($filePath, $file, $fileName);
+                // Storage::putFileAs($filePath, $file, $fileName);
+                Gdrive::put($filePath . '/' . $fileName, $file);
                 // upload task file end
 
                 // delete task file start
                 $filePath = decrypt($task->file);
-                if (Storage::exists($filePath)) {
-                    Storage::delete($filePath);
-                }
+                Gdrive::delete($filePath . '/' . $fileName, $file);
+                // if (Storage::exists($filePath)) {
+                //     Storage::delete($filePath);
+                // }
                 // delete task file end
 
                 // set new file path
@@ -177,14 +182,16 @@ class TaskService
                 $filePresentation = $request->validated()['presentation_file'];
                 $filePathPresentation = 'ppds/' . $userId . '/' . 'tasks/' . $task->id . '/' . 'presentation_file';
                 $fileNamePresentation = $filePresentation->getClientOriginalName();
-                Storage::putFileAs($filePathPresentation, $filePresentation, $fileNamePresentation);
-                // delete task presentation file end
+                // Storage::putFileAs($filePathPresentation, $filePresentation, $fileNamePresentation);
+                Gdrive::put($filePathPresentation . '/' . $fileNamePresentation, $filePresentation);
+                // upload task presentation file end
 
                 // delete task presentation file start
-                $filePresentationPath = decrypt($task->file);
-                if (Storage::exists($filePresentationPath)) {
-                    Storage::delete($filePresentationPath);
-                }
+                $filePathPresentation = decrypt($task->file);
+                Gdrive::delete($filePathPresentation . '/' . $fileNamePresentation, $filePresentation);
+                // if (Storage::exists($filePresentationPath)) {
+                //     Storage::delete($filePresentationPath);
+                // }
                 // delete task presentation file end
 
                 // set new presentation file path

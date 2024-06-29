@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
 
 class FileController extends Controller
 {
@@ -33,9 +34,20 @@ class FileController extends Controller
 
         $path = decrypt($request->f);
 
-        if (Storage::exists($path)) {
-            return Storage::response($path);
+        $data = Gdrive::get($path);
+
+        if ($data->file != null) {
+            return response($data->file, 200)
+                ->header('Content-Type', $data->ext)
+                ->header('Content-disposition', 'attachment; filename="' . $data->filename . '"');
+            Storage::response($data->file);
+        } else {
+            abort(404);
         }
+
+        // if (Storage::exists($path)) {
+        //     return Storage::response($path);
+        // }
     }
 
     public function profilePicture(Request $request)
