@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function logbooks()
     {
-        return $this->hasMany(Logbook::class);
+        return $this->hasMany(LogBook::class);
     }
 
     public function mentor()
