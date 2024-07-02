@@ -38,7 +38,7 @@ class UpdateStudentRequest extends FormRequest
             // 'status',
             'bpjs_id' => ['sometimes', 'string', 'max:50'],
             'bank_account' => ['sometimes', 'string', 'max:50'],
-            'age' => ['sometimes', 'numeric', 'max_digits:3'],
+            'date_of_birth' => ['sometimes', 'date'],
         ];
     }
 }

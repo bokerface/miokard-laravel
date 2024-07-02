@@ -19,8 +19,8 @@ return new class extends Migration
         });
 
         Schema::table('clinical_rotation_supervisors', function (Blueprint $table) {
-            $table->foreign('clinical_rotation_id')->references('id')->on('clinical_rotations');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('clinical_rotation_id')->references('id')->on('clinical_rotations')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

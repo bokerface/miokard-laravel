@@ -26,7 +26,7 @@ class UserProfile extends Model
         'str_id',
         'bpjs_id',
         'bank_account',
-        'age',
+        'date_of_birth',
     ];
 
     public function user()

@@ -171,10 +171,11 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="age">Usia</label>
-                    <input type="text" class="form-control @error('age') is-invalid @enderror" id="age"
-                        name="age" value="{{ old('age') ?? $user->userProfile->age }}">
-                    @error('age')
+                    <label for="date_of_birth">Tanggal Lahir</label>
+                    <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
+                        id="date_of_birth" name="date_of_birth"
+                        value="{{ old('date_of_birth') ?? $user->userProfile->date_of_birth }}">
+                    @error('date_of_birth')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

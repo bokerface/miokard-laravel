@@ -22,7 +22,7 @@ class UserProfileFactory extends Factory
             'origin_address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
             'emergency_phone' => fake()->phoneNumber(),
-            'age' => fake()->numberBetween(18, 65),
+            'date_of_birth' => fake()->date(),
         ];
     }
 }

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('str_id')->nullable();
             $table->string('bpjs_id')->nullable();
             $table->string('bank_account')->nullable();
-            $table->smallInteger('age')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->timestamps();
         });
 

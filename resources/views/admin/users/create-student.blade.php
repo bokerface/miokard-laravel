@@ -107,8 +107,9 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="password_confirmation" name="password_confirmation" class="form-label">Konfirmasi
-                        Password</label>
+                    <label for="password_confirmation" name="password_confirmation" class="form-label">
+                        Konfirmasi Password
+                    </label>
                     <input type="password" name="password_confirmation"
                         class="form-control @error('password') is-invalid @enderror" id="password_confirmation">
                     @error('password')
