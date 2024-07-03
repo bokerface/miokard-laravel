@@ -12,6 +12,12 @@
         <h1 class="h3 mb-0 text-gray-800">Import Data Mahasiswa</h1>
     </div>
 
+    @if (session()->has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-body">
             <form action="{{ route('admin.store_imported_users') }}" method="POST" enctype="multipart/form-data">

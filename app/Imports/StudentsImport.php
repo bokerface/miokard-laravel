@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Row;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class StudentsImport implements ToModel, WithHeadingRow, OnEachRow, WithValidation
 {
@@ -50,7 +51,7 @@ class StudentsImport implements ToModel, WithHeadingRow, OnEachRow, WithValidati
             'str_id' => $row['no_str'],
             'bpjs_id' => $row['no_bpjs'],
             'bank_account' => $row['no_rekening'],
-            'age' => $row['umur'],
+            'date_of_birth' => /*$row['tanggal_lahir']*/ Date::excelToDateTimeObject($row['tanggal_lahir']),
         ]);
 
         StudentClinicalRotation::create([

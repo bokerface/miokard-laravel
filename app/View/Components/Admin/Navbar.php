@@ -2,18 +2,22 @@
 
 namespace App\View\Components\Admin;
 
+use App\Models\User;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
 class Navbar extends Component
 {
+
+    public $user;
+
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        //
+        $this->user = User::with('userProfile')->find(auth()->user()->id);
     }
 
     /**
