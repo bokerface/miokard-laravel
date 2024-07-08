@@ -46,22 +46,20 @@
                                     {{ session('error') }}
                                 </div>
                             @endif
-                            <form class="user" action="{{ route('login.post') }}" method="POST">
+                            <form class="user" action="{{ route('password.update') }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="token" value="{{ $token }}">
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control form-control-user"
-                                        id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Alamat Email">
+                                    <input type="email" name="email" class="form-control form-control-user mb-1"
+                                        placeholder="Alamat Email Anda">
+                                    <input type="password" name="password" class="form-control form-control-user mb-1"
+                                        placeholder="Password Baru">
+                                    <input type="password" name="password_confirmation"
+                                        class="form-control form-control-user" placeholder="Konfirmasi Password Baru">
                                 </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" class="form-control form-control-user"
-                                        id="exampleInputPassword" placeholder="Password">
-                                </div>
-                                <button type="submit" class="btn btn-secondary btn-user btn-block">Login</button>
+                                <button type="submit" class="btn btn-secondary btn-user btn-block">Reset</button>
                             </form>
                             <hr>
-                            <div class="text-center">
-                                <a class="small" href="{{ route('forgot-password') }}">Lupa Password?</a>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\GuestCheck;
 use Illuminate\Support\Facades\Route;
@@ -35,11 +36,18 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::middleware(GuestCheck::class)
-    ->prefix('login')
+Route::middleware(GuestCheck::class)->prefix('login')
     ->group(function () {
         Route::get('/', [AuthController::class, 'login'])->name('login');
         Route::post('/', [AuthController::class, 'loginProcess'])->name('login.post');
+    });
+
+Route::middleware(GuestCheck::class)
+    ->group(function () {
+        Route::get('/forgot-password', [ResetPasswordController::class, 'requestPasswordResetLink'])->name('forgot-password');
+        Route::post('/forgot-password', [ResetPasswordController::class, 'requestPasswordResetLinkProcess'])->name('forgot-password.post');
+        Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetPassword'])->name('password.reset');
+        Route::post('/reset-password', [ResetPasswordController::class, 'submitNewPassword'])->name('password.update');
     });
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
